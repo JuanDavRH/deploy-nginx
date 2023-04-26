@@ -1,0 +1,27 @@
+version : '3.9'
+services:
+  sonarqube:
+    image: sonarqube:9.7.1-community
+    restart: always
+    ports:
+      - 9000:9000
+    volumes:
+      - ./sonarqube_data/data:/opt/sonarqube/data
+      - ./sonarqube_logs/logs:/opt/sonarqube/logs
+      - ./sonarqube_extensions/extensions:/opt/sonarqube/extensions
+      - /etc/localtime:/etc/localtime
+      - /etc/timezone:/etc/timezone
+
+    networks:
+      sonarqube_comunity_network:
+        aliases:
+          - sonarqube_net 
+volumes:
+  sonarqube_data: {}
+  sonarqube_logs: {}
+  sonarqube_extensions: {}
+networks:
+ sonarqube_comunity_network:
+   driver: bridge
+   ipam:
+     driver: default
